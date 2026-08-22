@@ -114,6 +114,9 @@ endcapLength = 40;
 // Function to total leg diameter.
 function legDia() = dowelDia+thickness*2;
 
+// Screws are enabled when screwAngleList is populated (see screw parameters).
+screwEnable = len(screwAngleList) > 0 ? 1 : 0;
+
 // Number clamping, legLength can't be smaller than leg diameter.
 legLength = lengthLeg < legDia() ? legDia() : lengthLeg; 
 
