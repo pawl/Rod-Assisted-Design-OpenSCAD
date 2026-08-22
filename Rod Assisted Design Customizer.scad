@@ -38,31 +38,22 @@ centerLegLength = 50;
 // Length in mm, this length is additional to the leg total diameter.
 lengthLeg = 50;
 
-// If vertical angle is positive, a rib between legs and center to provide strength. 
-// 0 = disabled. Rib will disable if larger than the centerLegLength or legLength (including legDia).
+// If vertical angle is positive, a rib between legs and center to provide strength. 0 = disabled. Rib will disable if larger than the centerLegLength or legLength (including legDia).
 ribSize = 20;
 
-// Adding internal leg stoppers to prevent dowels going too far and intersecting
-// Only available for connector, not for spacer/panel mount or cross connector. 
-// The geometry might have issues with certain angles.
-// 0 = disabled, 1 = stoppers in leg(s) only, 2 = stoppers in leg(s) and center leg.
+// Adding internal leg stoppers to prevent dowels going too far and intersecting. Only available for connector, not for spacer/panel mount or cross connector. The geometry might have issues with certain angles.
 stopperEnable = 1; // [0:Disabled, 1:Stoppers in side legs, 2:Stoppers in side and center legs]
 
 // If vertical angle is positive, it flattens bottom for printing or shelves. 1 = True
 flatBottomEnable = 1; // [0:Off, 1:On]
 
-// Amount in mm to flatten the bottom for easier printing and/or shelving depending on orientation. 
-// If using cross connector, this can be adjusted to suit your printability needs.
-// Keep this under thickness value.
+// Amount in mm to flatten the bottom for easier printing and/or shelving depending on orientation. If using cross connector, this can be adjusted to suit your printability needs. Keep this under thickness value.
 flatBottomDepth = 3;
 
 // If vertical angle is 0 (flat), it flattens top of legs for shelves. 1 = True.
 flatTopEnable = 1; // [0:Off, 1:On]
 
-// Amount in mm to flatten the top of each leg for shelving. Use depending on application. 
-// If spacer/panel mount is selected, it will compensate height to be co-planar to connector tops. 
-// Not every connector will have this flat side depending on orientation which may cause alignment issues.
-// Keep this under thickness value.
+// Amount in mm to flatten the top of each leg for shelving. Use depending on application. If spacer/panel mount is selected, it will compensate height to be co-planar to connector tops. Not every connector will have this flat side depending on orientation which may cause alignment issues. Keep this under thickness value.
 flatTopDepth = 3;
 
 // Arched top of dowel hole to reduce overhangs. 1 = True
@@ -70,10 +61,7 @@ teardropEnable = 1; // [0:Off, 1:On]
 
 /* [Screw Parameters] */
 
-// Screws enabled if angle list is populated. Add angle for screws separate by comma, example: [0, 180] for top and bottom, or [90, 270] for sides, [0, 90, 180, 270] for top and sides.
-// You may have some intersection issues with screw holes depending on angles.
-
-//screwAngle = 0;
+// Screws enabled if angle list is populated. Add angle for screws separate by comma, example: [0, 180] for top and bottom, or [90, 270] for sides, [0, 90, 180, 270] for top and sides. You may have some intersection issues with screw holes depending on angles.
 screwAngleList = [0, 180];
 
 // Enable countersink for screws.
@@ -99,8 +87,7 @@ screwCBDia = 9;
 // For spacer/panel mounts, the length of the tab. 0 or skadisTab enabled disables it.
 tabLength = 25;
 
-// For spacer/panel mount, it adds a Ikea Skadis capable hook. 0 = disabled, 1 = vertical, 2 = horizontal.
-// Fixed dimensions so may cause interference issues.
+// For spacer/panel mount, it adds a Ikea Skadis capable hook. Fixed dimensions so may cause interference issues.
 skadisTab = 0; // [0:Disabled, 1:Vertical, 2:Horizontal]
 
 /* [Cross Connector and End Cap] */
