@@ -510,18 +510,18 @@ module spacermount() {
             }
             
             // Screw hole if enabled
-            if(tabLength > screwDia && screwEnable == 1 && skadisTab <= 0){
+            if(tabLength > screwDia && len(screwAngleList) > 0 && skadisTab <= 0){
                 translate([legDia()/2+tabLength/2,0,thickness/2]) {
                         cylinder(h=thickness, d = screwDia, center = true);
                 }
             }
 
-            if(tabLength > (thickness-screwDepth)*2+screwDia && screwEnable == 1 && screwEnableCS == 1 && skadisTab <= 0){
+            if(tabLength > (thickness-screwDepth)*2+screwDia && len(screwAngleList) > 0 && screwEnableCS == 1 && skadisTab <= 0){
                 translate([legDia()/2+tabLength/2,0,screwDepth]) {
                         cylinder(h=thickness-screwDepth, d1 = screwDia, d2 = (thickness-screwDepth)*2+screwDia);
                 }
             }
-            if(tabLength > screwCBDia && screwEnable == 1 && screwEnableCB == 1 && skadisTab <= 0){
+            if(tabLength > screwCBDia && len(screwAngleList) > 0 && screwEnableCB == 1 && skadisTab <= 0){
                 translate([legDia()/2+tabLength/2,0,screwDepth]) {
                     cylinder(h=thickness-screwDepth, d=screwCBDia);
                 }
