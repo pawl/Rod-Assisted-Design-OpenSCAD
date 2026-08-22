@@ -111,6 +111,24 @@ crossAngle = 30;
 // If selected, the length of the endcap piece. Used as a foot or stopper.
 endcapLength = 40;
 
+/* [Net Anchor Parameters] */
+
+// Adds a tie-off lug on the center leg of the connector for attaching netting, twine, cord, or zip ties.
+// Only for the dowel connector type with a 0 or positive vertical angle.
+netAnchorEnable = 0; // [0:Off, 1:On]
+
+// Horizontal angle (degrees) of the anchor lug around the center leg.
+// Pick an angle that clears legs, ribs, and screw holes. With default legs and screws, 270 is the clear back side.
+netAnchorAngle = 270;
+
+// Diameter in mm of the tie hole through the anchor lug.
+netAnchorHoleDia = 8;
+
+// Height in mm of the tie hole center above the bottom of the center leg.
+// 0 = automatic, which keeps the hole as low as possible for strength and support-free printing.
+// The lug always extends down to the flat bottom so it prints without supports.
+netAnchorHeight = 0;
+
 // Function to total leg diameter.
 function legDia() = dowelDia+thickness*2;
 
@@ -320,6 +338,56 @@ module rib(sizeRib) {
 
 }
 
+// Net anchor: a tie-off lug on the center leg with a hole for netting, twine, cord, or zip ties.
+// The lug is a vertical blade that always extends down to the (flat) bottom of the center leg,
+// so it prints support-free in the flat bottom orientation and fuses to the bed for strength.
+// The tie hole runs sideways through the blade and is teardropped when teardropEnable is on.
+// Loads should pull in the plane of the blade (down or outward along the lug), which keeps
+// sheer perpendicular to the printed layers.
+// The blade root only reaches halfway into the center leg wall, so no angle can break into the
+// dowel bore, but pick netAnchorAngle to clear side legs, ribs, and screw holes.
+module netanchor(){
+
+    anchorBottom = -legDia()/2 + (flatBottomEnable == 1 ? flatBottomDepth : 0);
+    holeCenterZ = netAnchorHeight > 0 ? anchorBottom + netAnchorHeight : anchorBottom + netAnchorHoleDia/2 + thickness;
+    anchorTop = holeCenterZ + netAnchorHoleDia/2 + thickness;
+    anchorRootX = legDia()/2 - thickness/2;
+    holeCenterX = legDia()/2 + thickness/2 + netAnchorHoleDia/2;
+    anchorOuterX = holeCenterX + netAnchorHoleDia/2 + thickness;
+
+    rotate([0,0,netAnchorAngle]) {
+        difference() {
+
+            translate([anchorRootX, -thickness/2, anchorBottom]) {
+                cube([anchorOuterX-anchorRootX, thickness, anchorTop-anchorBottom]);
+            }
+
+            // Chamfer the top outer corner of the blade.
+            translate([anchorOuterX, 0, anchorTop]) {
+                rotate([0,45,0]) {
+                    cube([chamfer*sqrt(2), thickness+0.1, chamfer*sqrt(2)], center = true);
+                }
+            }
+
+            // Tie hole through the blade, teardropped to reduce overhangs like the dowel holes.
+            translate([holeCenterX, 0, holeCenterZ]) {
+                rotate([90,0,0]) {
+                    if(teardropEnable == 1){
+                        hull(){
+                            translate([0,netAnchorHoleDia/3.5,0]) {
+                                cylinder(h=thickness+0.1, d = netAnchorHoleDia/2, center = true);
+                            }
+                            cylinder(h=thickness+0.1, d = netAnchorHoleDia, center = true);
+                        }
+                    }
+
+                    else cylinder(h=thickness+0.1, d = netAnchorHoleDia, center = true);
+                }
+            }
+        }
+    }
+}
+
 module connector(){
     union() {
     
@@ -445,6 +513,11 @@ module connector(){
                     }
                 }
             }
+        }
+
+        // Net anchor lug on the center leg. Downward angles move the center leg, so keep this to flat or positive angles.
+        if (netAnchorEnable == 1 && vertAngle >= 0) {
+            netanchor();
         }
 
     }
