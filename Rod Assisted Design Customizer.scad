@@ -6,10 +6,10 @@
 //number of faces, optimize for rendering / 3D printing. 
 $fn = 50; 
 
-// ---------- Dowel Connector Parameters ---------------------
+/* [Dowel Connector Parameters] */
 
 // 1 = dowel connector, 2 = spacer/panel mount, 3 = cross connector, 4 = endcap
-type = 1;
+type = 1; // [1:Dowel connector, 2:Spacer/panel mount, 3:Cross connector, 4:End cap/foot]
 
 // Diameter in mm for dowel holes, keep in mind tolerance when printing. 1in ~ 26mm, 1/2in ~ 13mm, 3/8 ~10mm, 1/4in ~6.5mm
 dowelDia = 26;
@@ -21,7 +21,7 @@ thickness = 6;
 chamfer = 3;
 
 // Total number of side legs. If legNum and horzAngle are more than 360 degrees it will evenly distribute leg count around center leg.
-legNum = 2; 
+legNum = 2; // [1:12]
 
 // Horizontal angle (degrees) between side legs. If total is over 360, legs are evenly spaced instead.
 horzAngle = 90;
@@ -29,58 +29,46 @@ horzAngle = 90;
 // Vertical angle (degrees) for side legs, negative values disable flat features and lowers center leg.
 vertAngle = 0; 
 
-// If this list is populated, it will override the horzAngle and populate . If it one 360 degrees it'll be ignored. example [0, 30, 180, 270]
+// If this list is populated, it will override horzAngle and legNum. Example: [0, 30, 180, 270]
 horzAngleList = [];
 
-// Legth in mm for the center leg, this is to compensate for the possible angles of side legs as you might want clearance to access screw holes, or have a shorter middle leg for some reason.
+// Length in mm for the center leg, this is to compensate for the possible angles of side legs as you might want clearance to access screw holes, or have a shorter middle leg for some reason.
 centerLegLength = 50;
 
 // Length in mm, this length is additional to the leg total diameter.
 lengthLeg = 50;
 
-// If vertical angle is positive, a rib between legs and center to provide strength. 
-// 0 = disabled. Rib will disable if larger than the centerLegLength or legLength (including legDia).
+// If vertical angle is positive, a rib between legs and center to provide strength. 0 = disabled. Rib will disable if larger than the centerLegLength or legLength (including legDia).
 ribSize = 20;
 
-// Adding internal leg stoppers to prevent dowels going too far and intersecting
-// Only available for connector, not for spacer/panel mount or cross connector. 
-// The geometry might have issues with certain angles.
-// 0 = disabled, 1 = stoppers in leg(s) only, 2 = stoppers in leg(s) and center leg.
-stopperEnable = 1;
+// Adding internal leg stoppers to prevent dowels going too far and intersecting. Only available for connector, not for spacer/panel mount or cross connector. The geometry might have issues with certain angles.
+stopperEnable = 1; // [0:Disabled, 1:Stoppers in side legs, 2:Stoppers in side and center legs]
 
 // If vertical angle is positive, it flattens bottom for printing or shelves. 1 = True
-flatBottomEnable = 1;
+flatBottomEnable = 1; // [0:Off, 1:On]
 
-// Amount in mm to flatten the bottom for easier printing and/or shelving depending on orientation. 
-// If using cross connector, this can be adjusted to suit your printability needs.
-// Keep this under thickness value.
+// Amount in mm to flatten the bottom for easier printing and/or shelving depending on orientation. If using cross connector, this can be adjusted to suit your printability needs. Keep this under thickness value.
 flatBottomDepth = 3;
 
 // If vertical angle is 0 (flat), it flattens top of legs for shelves. 1 = True.
-flatTopEnable = 1;
+flatTopEnable = 1; // [0:Off, 1:On]
 
-// Amount in mm to flatted the top of each leg for shelving. Use depending on application. 
-// If spacer/panel mount is selected, it will compensate height to be co-planar to connector tops. 
-// Not every connector will have this flat side depending on orientation which may cause alignment issues.
-// Keep this under thickness value.
+// Amount in mm to flatten the top of each leg for shelving. Use depending on application. If spacer/panel mount is selected, it will compensate height to be co-planar to connector tops. Not every connector will have this flat side depending on orientation which may cause alignment issues. Keep this under thickness value.
 flatTopDepth = 3;
 
-// Arched top of dowel hole to reduce overhangs. 1 = True 
-teardropEnable = 1;
+// Arched top of dowel hole to reduce overhangs. 1 = True
+teardropEnable = 1; // [0:Off, 1:On]
 
-// ---------- Screw parameters ----------------
+/* [Screw Parameters] */
 
-// Screws enabled if angle list is populated. Add angle for screws separate by comma, example: [0, 180] for top and bottom, or [90, 270] for sides, [0, 90, 180, 270} for top and sides.
-// You may have some intersection issues with screw holes depending on angles.
-
-//screwAngle = 0;
+// Screws enabled if angle list is populated. Add angle for screws separate by comma, example: [0, 180] for top and bottom, or [90, 270] for sides, [0, 90, 180, 270] for top and sides. You may have some intersection issues with screw holes depending on angles.
 screwAngleList = [0, 180];
 
 // Enable countersink for screws.
-screwEnableCS = 1;
+screwEnableCS = 1; // [0:Off, 1:On]
 
 // Enable counterbore for screws.
-screwEnableCB = 0;
+screwEnableCB = 0; // [0:Off, 1:On]
 
 // Diameter in mm for screw hole.
 screwDia = 4;
@@ -94,16 +82,15 @@ screwDepth = 0;
 // Counterbore screw diameter in mm for screw heads.
 screwCBDia = 9;
 
-// --------- Spacer/Panel Mount Parameters ----------------
+/* [Spacer/Panel Mount Parameters] */
 
-// For spacer/panel mounts, the lenth of the tab. 0 or skadisTab enabled diables it.
+// For spacer/panel mounts, the length of the tab. 0 or skadisTab enabled disables it.
 tabLength = 25;
 
-// For spacer/panel mount, it adds a Ikea Skadis capable hook. 0 = disabled, 1 = verticle, 2 = horizontal. 
-// Fixed dimensions so may cause interference issues. 
-skadisTab = 0;
+// For spacer/panel mount, it adds a Ikea Skadis capable hook. Fixed dimensions so may cause interference issues.
+skadisTab = 0; // [0:Disabled, 1:Vertical, 2:Horizontal]
 
-// ------------ Cross connector and endcap ---------------
+/* [Cross Connector and End Cap] */
 
 // If selected, the angle of the crossing connectors in degrees. Cross connector uses legLengt parameter. Uses flatBottomDepth if enabled and positive for easier printing. 0 or 90 just make a single leg, with double screws, might be useful as a splice joint. 
 crossAngle = 30;
@@ -312,13 +299,13 @@ module rib(sizeRib) {
             cube([sizeRib*3,thickness+0.1,sizeRib*2], center = true);
         }
     }
-    
+
 }
 
 module connector(){
     union() {
     
-        // Subtracting dowelholes union from leg connetor union.
+        // Subtracting dowelholes union from leg connector union.
         difference() {
         
             // Union of leg features.
@@ -441,9 +428,9 @@ module connector(){
                 }
             }
         }
-        
+
     }
-   
+
 }
 
 module spacermount() {
