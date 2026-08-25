@@ -158,6 +158,29 @@ pockets first and add tees only where a run terminates.
 The same build used 45-degree and adjustable-angle connectors to add bracing,
 which is worth remembering given wind is the design load here.
 
+### Choosing the mesh
+
+Cat netting sells in three tiers, and the gap between them is large:
+
+1. **Plain nylon monofilament** - garden/bird netting. Cheapest, and the
+   category reinforced products define themselves against.
+2. **HDPE** - marketed as roughly three times more durable than nylon.
+3. **Steel-wire reinforced / bite resistant** - rated around 220 lb tensile.
+
+Mesh size is the part where garden netting is already fine: commercial cat
+netting runs about 3 cm, so 1 inch (2.5 cm) is if anything slightly finer.
+The difference is strand strength, not aperture.
+
+Monofilament is also the entanglement-prone form. Netting is sorted into
+monofilament and multi-strand precisely because multi-strand is thick and
+smooth enough that animals pull free, while monofilament catches claws and
+limbs. Prefer multi-strand, and prefer reinforced edging - it spreads tension
+so the pocket can be pulled tight without loading single fixings.
+
+Supervision changes the risk materially: an attended enclosure turns a breach
+from an escape into something noticed and fixed. Tier 1 netting is defensible
+for a supervised shakedown; it is not what to leave up permanently.
+
 ## Assembly order and structure notes
 
 1. Slide net-anchor tees onto the top rails BEFORE closing the frame - they
