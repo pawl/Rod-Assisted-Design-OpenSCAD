@@ -130,7 +130,7 @@
             "flatBottomEnable": "0",
             "flatTopEnable": "0",
             "teardropEnable": "0",
-            "screwAngleList": "[90]",
+            "screwAngleList": "[90, 270]",
             "screwEnableCS": "1",
             "screwEnableCB": "0",
             "screwDia": "7",
