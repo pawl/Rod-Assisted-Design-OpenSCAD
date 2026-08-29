@@ -43,6 +43,12 @@ grep -q "anchorHole: vertex dia 8.000" "$OUT/anchor_default.txt" \
     || { echo "  FAIL: anchor hole diameter drifted"; fail=1; }
 echo "  $(grep anchorHole "$OUT/anchor_default.txt")"
 
+echo "== Screw angles must be paired (regression: endcap shipped a half-hole) =="
+# NB: do not pipe this into sed - a pipeline reports the exit status of the
+# LAST command, so the failure would be silently swallowed.
+if ! screwout=$(python3 tools/check_screw_pairs.py); then fail=1; fi
+echo "$screwout" | sed 's/^/  /'
+
 echo "== Catio presets =="
 for p in catio-corner-bottom catio-corner-top catio-tee-netanchor catio-tee-branch catio-endcap; do
     openscad -o "$OUT/$p.stl" -p catio/catio-presets.json -P "$p" "$SCAD" 2> "$OUT/$p.log"

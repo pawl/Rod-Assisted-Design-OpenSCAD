@@ -181,6 +181,23 @@ Supervision changes the risk materially: an attended enclosure turns a breach
 from an escape into something noticed and fixed. Tier 1 netting is defensible
 for a supervised shakedown; it is not what to leave up permanently.
 
+## Known quirks of the generated parts
+
+- **Screw angles must come in opposing pairs.** Each screw hole is drawn as a
+  cylinder from the leg axis outward, so `[90]` bores only half a hole and
+  leaves the far wall solid. Always `[90, 270]`. `tools/check_screw_pairs.py`
+  enforces this; the endcap shipped broken this way once, and manifoldness and
+  bore-diameter checks all passed it.
+- **The tee has an open bore through its top.** With `centerLegLength = 0` and
+  no stopper the centre barrel is still generated, so a 23.9 mm hole opens
+  onto the rail. It drains rather than pools, but it lets water in - plug it
+  with a dab of silicone or a printed cap if that bothers you.
+- **The tee's centre-leg screw is a no-op.** It lands 2.55 mm off the rail
+  axis and reaches only 6.05 mm, well inside the 11.95 mm rail bore, so it
+  removes nothing. Harmless, just do not expect a fixing there.
+- **`lengthLeg` is clamped up to the leg diameter.** The tee presets ask for
+  30 mm and get 30.9. Not a problem, but it means small values are ignored.
+
 ## Assembly order and structure notes
 
 1. Slide net-anchor tees onto the top rails BEFORE closing the frame - they
@@ -198,6 +215,7 @@ for a supervised shakedown; it is not what to leave up permanently.
 
 ```
 tools/build_stls.sh         # regenerate every print-ready STL into catio/stl/
+tools/check_screw_pairs.py  # verify screw angles are paired into through holes
 tools/run_tests.sh          # renders all types + presets, checks manifoldness and bores
 tools/measure_stl.py x.stl  # measure any bore, verify mesh is edge-manifold
 ```
