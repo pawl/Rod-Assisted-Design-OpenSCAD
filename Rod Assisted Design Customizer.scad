@@ -187,16 +187,18 @@ module dowelhole(length, offsetScrew, teardrop, stopper){
             
             // Screw hole countersinks on top and bottom    
 
-            translate([(legDia()+screwDepth/2)*sin(180-screwAngle)/2,(legDia()+screwDepth/2)*cos(180-screwAngle)/2,offsetScrew]) {
+            // 0.02 oversize makes the pocket pierce the dowel bore instead of exactly
+            // touching it, which would create a non-manifold coincident face.
+            translate([(legDia()+screwDepth/2+0.02)*sin(180-screwAngle)/2,(legDia()+screwDepth/2+0.02)*cos(180-screwAngle)/2,offsetScrew]) {
                 rotate([0,90,90+screwAngle]){
                     if(screwEnableCS == 1){
-                        cylinder(h=thickness-screwDepth, d1 = thickness*2+screwDia, d2 = screwDia);
+                        cylinder(h=thickness-screwDepth+0.02, d1 = thickness*2+screwDia, d2 = screwDia);
                     }
                     if(screwEnableCB == 1){
-                        cylinder(h=thickness-screwDepth, d=screwCBDia);
+                        cylinder(h=thickness-screwDepth+0.02, d=screwCBDia);
                     }
                 }
-            }    
+            }
         }    
     }
 
@@ -412,8 +414,8 @@ module connector(){
         if (ribSize > 0 && vertAngle == 0 && ribSize < legLength - legDia()/2 && horzAngleListNum <= 0) {
             for(legNum = [1:1:legNum]){ 
                 rotate([0,0,270+legHorzAngle*(legNum+0.5)]) {
-                    translate([legDia()/2 - thickness/2, 0 ,legDia()/2 - (flatTopEnable == 1 ? flatTopDepth : 0)]) {   
-                        rib(ribSize); // Rib feature
+                    translate([legDia()/2 - thickness/2, 0 ,legDia()/2 - (flatTopEnable == 1 ? flatTopDepth : 0) - 0.1]) {
+                        rib(ribSize); // Rib feature, sunk 0.1 into the body so the base fuses instead of sitting coincident (non-manifold)
                     }
                 }
             }
@@ -422,8 +424,8 @@ module connector(){
         else if (ribSize > 0 && vertAngle == 0 && ribSize < legLength - legDia()/2 && horzAngleListNum > 0) {
             for(legNum = [0:1:horzAngleListNum-1]){ 
                 rotate([0,0,270+horzAngleList[legNum]]) {
-                    translate([legDia()/2 - thickness/2, 0 ,legDia()/2 - (flatTopEnable == 1 ? flatTopDepth : 0)]) {   
-                        rib(ribSize); // Rib feature
+                    translate([legDia()/2 - thickness/2, 0 ,legDia()/2 - (flatTopEnable == 1 ? flatTopDepth : 0) - 0.1]) {
+                        rib(ribSize); // Rib feature, sunk 0.1 into the body so the base fuses instead of sitting coincident (non-manifold)
                     }
                 }
             }
